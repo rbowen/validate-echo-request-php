@@ -34,6 +34,10 @@ function validate_request( $guid, $userid ) {
     # $valid = array( success => 0,
     #                message => '' );
 
+// Make this dir, and chown it to your web server user.
+// Requires trailing slash
+$ECHO_CERT_CACHE = '/var/cache/amazon_echo/';
+
     // Capture Amazon's POST JSON request:
     $jsonRequest    = file_get_contents('php://input');
     $data           = json_decode($jsonRequest, true);
@@ -59,7 +63,7 @@ function validate_request( $guid, $userid ) {
     }
 
     // Validate certificate signature
-    $valid_cert = valid_cert( $jsonRequest, $data );
+    $valid_cert = valid_cert( $jsonRequest, $data, $ECHO_CERT_CACHE );
     if ( $valid_cert != 1 ) {
         return array ( 'success' => 0,
                        'message' => $valid_cert );
@@ -136,9 +140,11 @@ function valid_ids( $guid, $userid, $data ) {
 /*
     Validate that the certificate and signature are valid
 */
-function valid_cert( $jsonRequest, $data ) {
+function valid_cert( $jsonRequest, $data, $ECHO_CERT_CACHE ) {
     // Determine if we need to download a new Signature Certificate Chain from Amazon
-    $md5pem = md5($_SERVER['HTTP_SIGNATURECERTCHAINURL']) . '.pem';
+    $md5pem = $ECHO_CERT_CACHE .
+              md5($_SERVER['HTTP_SIGNATURECERTCHAINURL']) .
+              '.pem';
     $echoServiceDomain = 'echo-api.amazon.com';
 
     // If we haven't received a certificate with this URL before,

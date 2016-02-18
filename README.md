@@ -16,8 +16,9 @@ Usage:
     // ... the rest of your skill goes here
 
 
-Note that this package keeps a local cache of a certificate, so the
-directory needs to be writeable. 
-
-TODO: Stash the cert somewhere better, so that we don't have to do this.
+Note that this package keeps a local cache of a certificate, so you **MUST**
+create the directory /var/cache/amazon_echo/ and make it writeable by
+your web server user ID. If you want to stash your certs somewhere else,
+you'll need to modify the $ECHO_CERT_CACHE variable in
+validate_request.php
 
