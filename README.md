@@ -6,6 +6,9 @@ License: http://www.apache.org/licenses/LICENSE-2.0
 
 Usage:
 
+    $guid = '5c33db4b-1234-4567-7889-a8f849de6b68';
+    $userid = 'AFPPR46KLASDJLKJDW788CASDFFHF6J6ERFIWCEI7GP4YDXFRBEJI';
+
     include('valid_request.php');
     $valid = validate_request( $guid, $userid );
     if ( ! $valid['success'] )  {
