@@ -1,6 +1,8 @@
 # validate-echo-request-php
 
-PHP functions to validate Amazon Echo requests.
+PHP functions to validate Amazon Echo requests. This enforces all of the
+requirements at
+https://developer.amazon.com/public/solutions/alexa/alexa-skills-kit/docs/developing-an-alexa-skill-as-a-web-service#verifying-the-signature-certificate-url
 
 License: http://www.apache.org/licenses/LICENSE-2.0
 
