@@ -115,7 +115,8 @@ function valid_key_chain_uri( $keychainUri ){
 function valid_ids( $guid, $userid, $data ) {
 
     $applicationIdValidation    = 'amzn1.echo-sdk-ams.app.' . $guid;
-    $userIdValidation           = 'amzn1.echo-sdk-account.' . $userid;
+    $userIdValidation1          = 'amzn1.echo-sdk-account.' . $userid;
+    $userIdValidation2          = 'amzn1.ask.account.' . $userid;
 
     //
     // Parse out key variables
@@ -129,8 +130,10 @@ function valid_ids( $guid, $userid, $data ) {
     }
 
     // Die if this request isn't coming from the correct Amazon Account
-    if ($userId != $userIdValidation) {
-        return('Invalid User id: ' . $userId);
+    if (     ($userId != $userIdValidation1)
+         and ($userId != $userIdValidation2) ) {
+        return('Invalid User id: ' . $userId . '  Expected ' .
+        $userIdValidation1 . ' or possibly ' . $userIdValidation2 );
     }
 
     return 1;
@@ -203,5 +206,31 @@ function valid_time( $data ) {
     return 1;
 }
 
-?>
+/*
 
+*/
+function sendresponse( $response, $me ) {
+
+    $response = array (
+       "version" => $me['version'],
+        'response' => array (
+            'outputSpeech' => array (
+                'type' => 'PlainText',
+                'text' => $response
+            ),
+
+             'card' => array (
+                   'type' => 'Simple',
+                   'title' => $me['name'],
+                   'content' => $response
+             ),
+
+            'shouldEndSession' => 'true'
+        ),
+    );
+
+    echo json_encode($response);
+}
+
+
+?>
