@@ -15,6 +15,7 @@ Usage:
     $valid = validate_request( $guid, $userid );
     if ( ! $valid['success'] )  {
         error_log( 'Request failed: ' . $valid['message'] );
+        header("HTTP/1.1 400 Bad Request");
         die();
     }
 

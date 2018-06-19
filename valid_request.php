@@ -114,7 +114,7 @@ function valid_key_chain_uri( $keychainUri ){
 */
 function valid_ids( $guid, $userid, $data ) {
 
-    $applicationIdValidation    = 'amzn1.echo-sdk-ams.app.' . $guid;
+    $applicationIdValidation    = 'amzn1.ask.skill.' . $guid;
     $userIdValidation1          = 'amzn1.echo-sdk-account.' . $userid;
     $userIdValidation2          = 'amzn1.ask.account.' . $userid;
 
